@@ -28,7 +28,7 @@ public class Handler extends serviceGrpc.serviceImplBase {
     public void getName(Service.Empty request, StreamObserver<Service.HandlerName> responseObserver) {
 
         System.out.println("getName method is called");
-        Service.HandlerName handlerName = Service.HandlerName.newBuilder().setName("customEvent").build();
+        Service.HandlerName handlerName = Service.HandlerName.newBuilder().setName("grpcBasedEventHandler").build();
         responseObserver.onNext(handlerName);
         responseObserver.onCompleted();
 
@@ -49,14 +49,22 @@ public class Handler extends serviceGrpc.serviceImplBase {
         System.out.println("handleEvent method is called");
         Service.Log.Builder serverLog = Service.Log.newBuilder();
         if (request.getEvent().equals("PRE_ADD_USER")) {
-            serverLog.setLog("testing PRE_ADD_USER : Adding a user with UserName- " + request.getEventPropertiesOrThrow("user-name")
-                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain") + ", UserStoreDomain- "
-                    + request.getEventPropertiesOrThrow("user-store-domain")+" on Java grpc server");
+            serverLog.setLog("testing PRE_ADD_USER event using GrpcEventHandler on Java gRPC server : " +
+                    "Adding a user with UserName- " + request.getEventPropertiesOrThrow("user-name")
+                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain"));
+
+            System.out.println("testing PRE_ADD_USER event using GrpcEventHandler on Java gRPC server : " +
+                    "Adding a user with UserName- " + request.getEventPropertiesOrThrow("user-name")
+                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain"));
         }
         if (request.getEvent().equals("POST_ADD_USER")) {
-            serverLog.setLog("testing POST_ADD_USER : Successfully added the user with UserName- " + request.getEventPropertiesOrThrow("user-name")
-                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain") + ", UserStoreDomain- "
-                    + request.getEventPropertiesOrThrow("user-store-domain")+" on Java grpc server");
+            serverLog.setLog("testing POST_ADD_USER event using GrpcEventHandler on Java grpc server : " +
+                    "Successfully added the user with UserName- " + request.getEventPropertiesOrThrow("user-name")
+                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain"));
+
+            System.out.println("testing POST_ADD_USER event using GrpcEventHandler on Java grpc server : " +
+                    "Successfully added the user with UserName- " + request.getEventPropertiesOrThrow("user-name")
+                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain"));
         }
         responseObserver.onNext(serverLog.build());
         responseObserver.onCompleted();
