@@ -28,7 +28,7 @@ public class HandlerServer {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        Server server = ServerBuilder.forPort(8010).addService(new Handler()).build();
+        Server server = ServerBuilder.forPort(8020).addService(new Handler()).build();
 
         server.start();
         System.out.println("Handler Server started at " + server.getPort());
