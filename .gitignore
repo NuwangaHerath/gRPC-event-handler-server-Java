@@ -1,0 +1,12 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.mar
+
+# Ignore everything in this directory
+target
+*.iml
+.idea

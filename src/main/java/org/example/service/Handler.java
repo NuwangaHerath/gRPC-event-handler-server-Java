@@ -48,15 +48,7 @@ public class Handler extends serviceGrpc.serviceImplBase {
 
         System.out.println("handleEvent method is called");
         Service.Log.Builder serverLog = Service.Log.newBuilder();
-        if (request.getEvent().equals("PRE_ADD_USER")) {
-            serverLog.setLog("testing PRE_ADD_USER event using GrpcEventHandler on Java gRPC server : " +
-                    "Adding a user with UserName- " + request.getEventPropertiesOrThrow("user-name")
-                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain"));
 
-            System.out.println("testing PRE_ADD_USER event using GrpcEventHandler on Java gRPC server : " +
-                    "Adding a user with UserName- " + request.getEventPropertiesOrThrow("user-name")
-                    + ", TenantDomain- " + request.getEventPropertiesOrThrow("tenant-domain"));
-        }
         if (request.getEvent().equals("POST_ADD_USER")) {
             serverLog.setLog("testing POST_ADD_USER event using GrpcEventHandler on Java grpc server : " +
                     "Successfully added the user with UserName- " + request.getEventPropertiesOrThrow("user-name")
