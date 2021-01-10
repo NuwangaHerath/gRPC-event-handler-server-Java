@@ -22,18 +22,27 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.example.service.Handler;
 
+import java.io.File;
 import java.io.IOException;
 
 public class HandlerServer {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        Server server = ServerBuilder.forPort(8020).addService(new Handler()).build();
+        File certChainFile = new File("/home/nuwanga/wso2/event-handler-server/src/main/java/org/example/server/cert1/server-cert.pem");
+        File privateKeyFile = new File("/home/nuwanga/wso2/event-handler-server/src/main/java/org/example/server/cert1/server-key.pem");
+
+        // SSL/TLS Authenticated server.
+        Server server = ServerBuilder.forPort(8020)
+                .useTransportSecurity(certChainFile, privateKeyFile)
+                .addService(new Handler())
+                .build();
 
         server.start();
         System.out.println("Handler Server started at " + server.getPort());
         server.awaitTermination();
         server.shutdown();
+
 
     }
 

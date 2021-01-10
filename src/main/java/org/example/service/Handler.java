@@ -22,6 +22,8 @@ import io.grpc.stub.StreamObserver;
 import org.example.grpc.Service;
 import org.example.grpc.serviceGrpc;
 
+import java.util.Map;
+
 public class Handler extends serviceGrpc.serviceImplBase {
 
     @Override
@@ -41,6 +43,8 @@ public class Handler extends serviceGrpc.serviceImplBase {
         Service.Priority priority = Service.Priority.newBuilder().setPriority(58).build();
         responseObserver.onNext(priority);
         responseObserver.onCompleted();
+
+
     }
 
     @Override
@@ -48,6 +52,10 @@ public class Handler extends serviceGrpc.serviceImplBase {
 
         System.out.println("handleEvent method is called");
         Service.Log.Builder serverLog = Service.Log.newBuilder();
+
+        for (Map.Entry<String, String> entry : request.getEventPropertiesMap().entrySet()) {
+            System.out.println("Key: "+entry.getKey()+" Value: "+ entry.getValue());
+        }
 
         if (request.getEvent().equals("POST_ADD_USER")) {
             serverLog.setLog("testing POST_ADD_USER event using GrpcEventHandler on Java grpc server : " +
