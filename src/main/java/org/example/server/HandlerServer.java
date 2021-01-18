@@ -18,9 +18,10 @@
 
 package org.example.server;
 
+import org.example.service.HandlerService;
+
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import org.example.service.Handler;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,10 +34,13 @@ public class HandlerServer {
         File privateKeyFile = new File("/home/nuwanga/wso2/event-handler-server/src/main/java/org/example/server/cert1/server-key.pem");
 
         // SSL/TLS Authenticated server.
-        Server server = ServerBuilder.forPort(8020)
+        Server server = ServerBuilder.forPort(8030)
                 .useTransportSecurity(certChainFile, privateKeyFile)
-                .addService(new Handler())
+                .addService(new HandlerService())
                 .build();
+//        Server server = ServerBuilder.forPort(8020)
+//                .addService(new HandlerService())
+//                .build();
 
         server.start();
         System.out.println("Handler Server started at " + server.getPort());
