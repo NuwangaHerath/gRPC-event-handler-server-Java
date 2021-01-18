@@ -22,6 +22,8 @@ import io.grpc.stub.StreamObserver;
 import org.example.grpc.Service;
 import org.example.grpc.serviceGrpc;
 
+
+
 import java.util.Map;
 
 public class Handler extends serviceGrpc.serviceImplBase {
@@ -30,7 +32,7 @@ public class Handler extends serviceGrpc.serviceImplBase {
     public void getName(Service.Empty request, StreamObserver<Service.HandlerName> responseObserver) {
 
         System.out.println("getName method is called");
-        Service.HandlerName handlerName = Service.HandlerName.newBuilder().setName("grpcBasedEventHandler").build();
+        Service.HandlerName handlerName = Service.HandlerName.newBuilder().setName("grpcBasedEventHandlerJava").build();
         responseObserver.onNext(handlerName);
         responseObserver.onCompleted();
 
